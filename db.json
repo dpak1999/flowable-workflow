@@ -1,0 +1,35 @@
+{
+  "workflows": [
+    {
+      "id": "wf-001",
+      "name": "Employee onboarding",
+      "status": "active",
+      "owner": "Operations",
+      "updatedAt": "2026-05-02T09:00:00.000Z"
+    },
+    {
+      "id": "wf-002",
+      "name": "Purchase approval",
+      "status": "draft",
+      "owner": "Finance",
+      "updatedAt": "2026-05-02T09:15:00.000Z"
+    }
+  ],
+  "forms": [
+    {
+      "id": "form-001",
+      "name": "New hire details",
+      "workflowId": "wf-001",
+      "fields": 8,
+      "updatedAt": "2026-05-02T09:30:00.000Z"
+    },
+    {
+      "id": "form-002",
+      "name": "Expense request",
+      "workflowId": "wf-002",
+      "fields": 6,
+      "updatedAt": "2026-05-02T09:45:00.000Z"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

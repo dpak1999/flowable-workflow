@@ -15,20 +15,19 @@ export class WorkflowService {
     return this.http.get<Workflow[]>(this.workflowsUrl);
   }
 
+  getWorkflow(id: string): Observable<Workflow> {
+    return this.http.get<Workflow>(`${this.workflowsUrl}/${id}`);
+  }
+
   createWorkflow(request: CreateWorkflowRequest): Observable<Workflow> {
     return this.http.post<Workflow>(this.workflowsUrl, {
       name: request.name,
-      status: 'draft',
-      owner: 'Workflow team',
-      updatedAt: new Date().toISOString()
+      createdAt: new Date().toISOString()
     });
   }
 
   updateWorkflow(id: string, request: UpdateWorkflowRequest): Observable<Workflow> {
-    return this.http.patch<Workflow>(`${this.workflowsUrl}/${id}`, {
-      ...request,
-      updatedAt: new Date().toISOString()
-    });
+    return this.http.patch<Workflow>(`${this.workflowsUrl}/${id}`, request);
   }
 
   deleteWorkflow(id: string): Observable<Workflow> {

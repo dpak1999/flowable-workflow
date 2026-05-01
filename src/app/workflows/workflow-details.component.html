@@ -1,0 +1,31 @@
+<section class="details" aria-labelledby="workflow-details-title">
+  <div class="details-header">
+    <div>
+      <p class="eyebrow">Workflow details</p>
+      <h1 id="workflow-details-title">{{ workflow()?.name || 'Workflow' }}</h1>
+    </div>
+
+    <p-button label="Back" [outlined]="true" routerLink="/" />
+  </div>
+
+  @if (isLoading()) {
+    <p class="muted">Loading workflow...</p>
+  } @else if (errorMessage()) {
+    <p class="error-message">{{ errorMessage() }}</p>
+  } @else if (workflow(); as selectedWorkflow) {
+    <dl class="details-list">
+      <div>
+        <dt>ID</dt>
+        <dd>{{ selectedWorkflow.id }}</dd>
+      </div>
+      <div>
+        <dt>Name</dt>
+        <dd>{{ selectedWorkflow.name }}</dd>
+      </div>
+      <div>
+        <dt>Created</dt>
+        <dd>{{ selectedWorkflow.createdAt | date: 'medium' }}</dd>
+      </div>
+    </dl>
+  }
+</section>

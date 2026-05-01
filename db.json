@@ -1,18 +1,4 @@
 {
-  "workflows": [
-    {
-      "id": "wf-001",
-      "name": "Employee onboarding",
-      "status": "active",
-      "owner": "Operations",
-      "updatedAt": "2026-05-02T09:00:00.000Z"
-    },
-    {
-      "id": "wf-002",
-      "name": "Purchase approval",
-      "status": "draft",
-      "owner": "Finance",
-      "updatedAt": "2026-05-02T09:15:00.000Z"
-    }
-  ]
+  "workflows": [],
+  "$schema": "./node_modules/json-server/schema.json"
 }

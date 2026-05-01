@@ -14,7 +14,7 @@ The server runs at:
 http://localhost:3000
 ```
 
-Available starter table:
+Available table:
 
 ```txt
 /workflows
@@ -31,4 +31,12 @@ PATCH  /workflows/wf-001
 DELETE /workflows/wf-001
 ```
 
-Edit `db.json` to add more top-level arrays. Each array becomes a table-like resource automatically.
+Workflow rows currently use this shape:
+
+```json
+{
+  "id": "wf-001",
+  "name": "Employee onboarding",
+  "createdAt": "2026-05-02T09:00:00.000Z"
+}
+```

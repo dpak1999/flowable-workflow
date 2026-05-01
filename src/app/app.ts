@@ -1,18 +1,39 @@
-import { Component, HostBinding, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { DatePipe } from '@angular/common';
+import { Component, HostBinding, OnInit, inject, signal } from '@angular/core';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Button } from 'primeng/button';
+import { Dialog } from 'primeng/dialog';
+import { InputText } from 'primeng/inputtext';
+import { TableModule } from 'primeng/table';
+
+import { Workflow } from './workflows/workflow.model';
+import { WorkflowService } from './workflows/workflow.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Button],
+  imports: [Button, DatePipe, Dialog, InputText, ReactiveFormsModule, TableModule],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
-export class App {
+export class App implements OnInit {
   private readonly themeStorageKey = 'flowable-workflow-theme';
+  private readonly workflowService = inject(WorkflowService);
 
   protected readonly title = signal('flowable-workflow');
   protected readonly isDarkTheme = signal(this.getInitialTheme());
+  protected readonly workflows = signal<Workflow[]>([]);
+  protected readonly isLoading = signal(false);
+  protected readonly isSaving = signal(false);
+  protected readonly showAddWorkflowDialog = signal(false);
+  protected readonly errorMessage = signal('');
+  protected readonly workflowName = new FormControl('', {
+    nonNullable: true,
+    validators: [Validators.required, Validators.maxLength(80)]
+  });
+
+  ngOnInit(): void {
+    this.loadWorkflows();
+  }
 
   @HostBinding('class.dark-theme')
   protected get darkThemeClass(): boolean {
@@ -25,6 +46,54 @@ export class App {
       this.storeTheme(nextTheme);
 
       return nextTheme;
+    });
+  }
+
+  protected openAddWorkflowDialog(): void {
+    this.workflowName.reset('');
+    this.showAddWorkflowDialog.set(true);
+  }
+
+  protected closeAddWorkflowDialog(): void {
+    this.showAddWorkflowDialog.set(false);
+  }
+
+  protected saveWorkflow(): void {
+    this.workflowName.markAsTouched();
+
+    if (this.workflowName.invalid || this.isSaving()) {
+      return;
+    }
+
+    this.isSaving.set(true);
+    this.errorMessage.set('');
+
+    this.workflowService.createWorkflow({ name: this.workflowName.value.trim() }).subscribe({
+      next: (workflow) => {
+        this.workflows.update((workflows) => [...workflows, workflow]);
+        this.isSaving.set(false);
+        this.showAddWorkflowDialog.set(false);
+      },
+      error: () => {
+        this.errorMessage.set('Could not create the workflow. Check that the local JSON server is running.');
+        this.isSaving.set(false);
+      }
+    });
+  }
+
+  private loadWorkflows(): void {
+    this.isLoading.set(true);
+    this.errorMessage.set('');
+
+    this.workflowService.getWorkflows().subscribe({
+      next: (workflows) => {
+        this.workflows.set(workflows);
+        this.isLoading.set(false);
+      },
+      error: () => {
+        this.errorMessage.set('Could not load workflows. Start the local JSON server with npm run server.');
+        this.isLoading.set(false);
+      }
     });
   }
 

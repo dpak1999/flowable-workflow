@@ -14,11 +14,10 @@ The server runs at:
 http://localhost:3000
 ```
 
-Available starter tables:
+Available starter table:
 
 ```txt
 /workflows
-/forms
 ```
 
 Each table supports the usual JSON CRUD operations:

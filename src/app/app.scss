@@ -110,21 +110,27 @@
 
 .shell {
   min-height: calc(100dvh - 4.5rem);
-  display: grid;
-  place-items: center;
   padding: 2rem;
 }
 
-.setup-panel {
-  width: min(100%, 34rem);
+.workspace {
+  width: min(100%, 72rem);
   display: grid;
-  gap: 1rem;
+  gap: 1.25rem;
+  margin: 0 auto;
   padding: 2rem;
   border: 1px solid var(--surface-border);
   border-radius: 8px;
   background: var(--surface);
   box-shadow: var(--shadow);
   transition: border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+}
+
+.workspace-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
 .eyebrow {
@@ -148,6 +154,63 @@ h1 {
   line-height: 1.6;
 }
 
+.error-message,
+.field-error {
+  margin: 0;
+  color: #b42318;
+  font-size: 0.9rem;
+}
+
+:host(.dark-theme) .error-message,
+:host(.dark-theme) .field-error {
+  color: #fda29b;
+}
+
+.workflow-table {
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.75rem;
+  padding: 0 0.65rem;
+  border-radius: 999px;
+  color: #175cd3;
+  background: #dbeafe;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+:host(.dark-theme) .status-pill {
+  color: #bfdbfe;
+  background: #1d3b68;
+}
+
+.workflow-form {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.workflow-form label {
+  color: var(--text);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.workflow-form input {
+  width: 100%;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
 @media (max-width: 520px) {
   .top-header {
     padding: 0 1rem;
@@ -159,5 +222,18 @@ h1 {
 
   .shell {
     padding: 1rem;
+  }
+
+  .workspace {
+    padding: 1rem;
+  }
+
+  .workspace-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .dialog-actions {
+    flex-direction: column-reverse;
   }
 }

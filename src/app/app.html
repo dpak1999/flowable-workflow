@@ -1,3 +1,23 @@
+<header class="top-header">
+  <a class="brand" href="/" aria-label="Flowable Workflow home">
+    <span class="brand-mark" aria-hidden="true">F</span>
+    <span>Flowable Workflow</span>
+  </a>
+
+  <button
+    class="theme-toggle"
+    type="button"
+    [attr.aria-pressed]="isDarkTheme()"
+    [attr.aria-label]="isDarkTheme() ? 'Switch to light theme' : 'Switch to dark theme'"
+    (click)="toggleTheme()"
+  >
+    <span class="toggle-track" aria-hidden="true">
+      <span class="toggle-thumb"></span>
+    </span>
+    <span class="toggle-label">{{ isDarkTheme() ? 'Dark' : 'Light' }}</span>
+  </button>
+</header>
+
 <main class="shell">
   <section class="setup-panel" aria-labelledby="setup-title">
     <p class="eyebrow">PrimeNG setup</p>
@@ -5,6 +25,5 @@
     <p class="summary">Aura is configured globally and this PrimeNG button is rendered from the installed package.</p>
     <p-button label="PrimeNG ready" />
   </section>
-
   <router-outlet />
 </main>

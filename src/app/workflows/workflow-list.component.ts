@@ -46,15 +46,16 @@ export class WorkflowListComponent implements OnInit {
 
   protected saveWorkflow(): void {
     this.workflowName.markAsTouched();
+    const workflowName = this.workflowName.value.trim();
 
-    if (this.workflowName.invalid || this.isSaving()) {
+    if (!workflowName || this.workflowName.invalid || this.isSaving()) {
       return;
     }
 
     this.isSaving.set(true);
     this.errorMessage.set('');
 
-    this.workflowService.createWorkflow({ name: this.workflowName.value.trim() }).subscribe({
+    this.workflowService.createWorkflow({ name: workflowName }).subscribe({
       next: (workflow) => {
         this.workflows.update((workflows) => [...workflows, workflow]);
         this.isSaving.set(false);

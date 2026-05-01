@@ -81,7 +81,7 @@
 
     <div class="dialog-actions">
       <p-button label="Cancel" severity="secondary" [outlined]="true" type="button" (onClick)="closeAddWorkflowDialog()" />
-      <p-button label="Save" type="submit" [loading]="isSaving()" />
+      <p-button label="Create" type="button" [loading]="isSaving()" (onClick)="saveWorkflow()" />
     </div>
   </form>
 </p-dialog>
